@@ -1,0 +1,436 @@
+<!doctype html>
+<html>
+<head>
+  <title>Doodle Pad</title>
+
+
+<link rel="shortcut icon" type="image/png" href="doodle_icon_64.png"/>
+
+<meta charset="utf-8">
+<meta name="title=" content="Doodle Pad">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Use Doodle Pad to to make simple doodles for free online">
+<meta name="keywords" content="doodle, draw, pad, drawing">
+<meta id="metaColor1" name="theme-color" content="#393">
+<meta id="metaColor2" name="msapplication-navbutton-color" content="#393">
+<meta id="metaColor3" name="apple-mobile-web-app-status-bar-style" content="#393">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>  
+
+
+
+
+  <style>
+    * {
+
+      -webkit-user-select: none;
+      box-sizing: border-box; /*adds border to inside*/
+    }
+    body {
+      margin:0;
+    }
+    canvas {
+      display: block;
+    }
+    canvas, svg, input, .swatch {
+      cursor: pointer;
+    }
+    #toolbar {
+      width: 100%;
+      height: 50px;
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      background-color: #333;
+      color: #ccc;
+    }
+    #radVal {
+      display: inline;
+    }
+    #rad {
+      float: left;
+    }
+    #colors, .swatch {
+/*      float: right !important;
+      display: inline !important;
+      clear: right;
+*/
+    }
+    .swatch {
+      border-radius: 50%;
+      box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.5),
+      0px 2px 1px rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      margin-left: 10px;
+    }
+    .swatch.active {
+      border: 2px solid #ccc;
+      box-shadow: inset 0px 3px 0px rgba(0, 0, 0, 0.5);
+    }
+    svg {
+      background-color: #eee;
+      border-radius: 50%;
+      padding: 5px;
+    }
+    svg:hover {
+      background-color: #666;
+      fill: #eee;
+    }
+    #buttons {
+      float: right;
+      margin-left: 10px;
+    }
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+    .swatch {
+      width: 30px;
+      height: 30px;
+    }
+    #showToolbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    }
+    div {
+      display: inline;
+    }
+    #innerToolbar {
+      display: inline-block;
+    }
+
+    @media(max-width: 480px), (max-height: 480px) {
+      svg {
+        width: 25px;
+        height: 25px;
+      }
+    } @media print {
+      #toolbar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="toolbar">
+  <div id="innerToolbar" style="display:inline-block;">
+    <div id="rad">
+      Radius <p id="radVal"></p>
+      <input id="radInput" type="range" min="1" max="50" step="1"></input>
+    </div>
+    <div title="show/hide palette">
+      <svg id="palette" onclick="togglePalette()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+        <path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+    </div>
+    <div id="buttons">
+      <div title="undo">
+        <svg onclick="undo()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+        </svg>
+      </div>
+      <div title="load image">
+        <svg onclick="loadImg()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+        </svg>
+      </div>
+      <div title="print">
+        <svg onclick="print()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+          <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+      </div>
+      <div title="save">
+        <svg onclick="saveImg()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+        </svg>
+      </div>
+      <div title="delete">
+        <svg onclick="deleteImg()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+          <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+      </div>
+      <div title="fullscreen">
+        <svg onclick="fullscreen()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+      </div>
+    </div>
+
+	<div id="colors"></div>
+
+  </div>
+
+
+  <div title="show/hide toolbar">
+    <svg id="showToolbar" onclick="toggleToolbar()" fill="#666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="none"/>
+      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+    </svg>
+  </div>
+
+</div>
+
+
+<input id="hiddenFile" type="file" style="display:none;"></input>
+<canvas id="doodleCanvas">
+  Whoops
+</canvas>
+<script>
+  /*TODO
+  fix save image?
+
+  opacity?
+  info: what buttons do, settings, contact/share
+  custom color, color picker
+  virtual canvas
+  */
+
+  var canvas = document.getElementById("doodleCanvas");
+  var ctx = canvas.getContext("2d");
+
+  var rad;
+  var isClicking = false;
+  var oldImages = [];
+
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  canvas.addEventListener("mousedown", engage);
+  canvas.addEventListener("mouseup",   disengage);
+  canvas.addEventListener("mousemove", putPoint);
+
+  canvas.addEventListener("touchstart", engage);
+  canvas.addEventListener("touchend",   disengage);
+  canvas.addEventListener("touchmove",  putPoint);
+
+  function saveOld() {
+    if(oldImages.length > 29) {
+      oldImages = oldImages.slice(1,29);
+    }
+    oldImages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  }
+
+  function engage(evt) {
+    isClicking = true;
+    putPoint(evt);
+  }
+
+  function disengage() {
+    saveOld();
+    isClicking = false;
+    ctx.beginPath(); //clear old path
+  }
+
+  function putPoint(evt) {
+    if(isClicking) {
+      var x,y;
+      if(evt.clientX) {
+        x = evt.clientX;
+        y = evt.clientY;
+      } else {
+        var touch = evt.touches[0];
+        x = touch.pageX;
+        y = touch.pageY;
+      }
+      ctx.lineTo(x, y); //connect to previous click
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x, y, rad, 0, 2*Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    }
+  }
+
+  //BUTTONS
+  var palette = document.getElementById("palette");
+  var showToolbar = document.getElementById("showToolbar");
+
+  function togglePalette() {
+    var colors = document.getElementById("colors");
+    if(colors.style.display == "inline-block") {
+      colors.style.display = "none";
+      palette.style.fill = "#eee";
+      palette.style.backgroundColor = "#666";
+    } else {
+      colors.style.display = "inline-block";
+      palette.style.fill = "#666";
+      palette.style.backgroundColor = "#eee";
+    }
+  }
+
+  function toggleToolbar() {
+    var innerToolbar = document.getElementById("innerToolbar");
+    var toolbar = document.getElementById("toolbar");
+    if(innerToolbar.style.display == "inline-block") {
+      innerToolbar.style.display = "none";
+      toolbar.style.height = "0px";
+      toolbar.style.padding = "0px";
+      showToolbar.style.fill = "#eee";
+      showToolbar.style.backgroundColor = "#666";
+    } else {
+      innerToolbar.style.display = "inline-block";
+      toolbar.style.height = "50px";
+      toolbar.style.padding = "10px";
+      showToolbar.style.fill = "#666";
+      showToolbar.style.backgroundColor = "#eee";
+    }
+  }
+
+  window.onresize = function() {
+    var img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.putImageData(img, 0, 0);
+    setRad(rad);
+    setSwatch({target:document.getElementsByClassName("active")[0]});
+  }
+
+  //RADIUS
+  var defaultRad = 5,
+      radVal = document.getElementById("radVal"),
+      radInput = document.getElementById("radInput");
+
+  setRad(defaultRad);
+  radInput.value = defaultRad;
+
+  function setRad(newRad) {
+    rad = newRad;
+    ctx.lineWidth = 2 * rad;
+    radVal.innerHTML = rad < 10 ? "0" + rad : rad;
+  }
+
+  radInput.onchange = function() {
+    setRad(radInput.value);
+  }
+
+  //COLOR
+  var colors = [];
+  colors.push("hsl(0,0%,0%)");
+  colors.push("hsl(0,0%,25%)");
+  colors.push("hsl(0,0%,50%)");
+  colors.push("hsl(0,0%,75%)");
+  colors.push("hsl(0,0%,100%)");
+  for(var i = 0; i < 360; i+= 30) {
+    colors.push("hsl(" + i + ",100%,25%)");
+  }
+  for(var i = 0; i < 360; i+= 30) {
+    colors.push("hsl(" + i + ",100%,50%)");
+  }
+  for(var i = 0; i < 360; i+= 30) {
+    colors.push("hsl(" + i + ",100%,75%)");
+  }
+
+  for(var i = 0; i < colors.length; i++) {
+    var swatch = document.createElement("div");
+    swatch.className = "swatch";
+    swatch.style.backgroundColor = colors[i];
+    swatch.addEventListener("click", setSwatch);
+    document.getElementById("colors").appendChild(swatch);
+  }
+
+  function setSwatch(evt) {
+    var swatch = evt.target;
+    setColor(swatch.style.backgroundColor);
+    swatch.className += " active";
+  }
+
+  function setColor(color) {
+    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
+    var active = document.getElementsByClassName("active")[0];
+    if(active) {
+      active.className = "swatch";
+    }
+  }
+
+  setSwatch({target:document.getElementsByClassName("swatch")[0]});
+
+  //MORE BUTTONS
+  function saveImg() {
+    var data = canvas.toDataURL("image/png");
+    var newWindow = window.open('about:blank','image from canvas');
+    newWindow.document.write("<img src='" + data + "' alt='from canvas'/>");
+  }
+  function deleteImg() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var oldStyle = ctx.fillStyle;
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = oldStyle;
+  }
+
+  deleteImg();
+
+  function undo() {
+    if(oldImages.length != 0) {
+      ctx.putImageData(oldImages.pop(), 0, 0);
+    }
+  }
+
+  //https://www.thewebflash.com/toggling-fullscreen-mode-using-the-html5-fullscreen-api/
+  function fullscreen(elem) {
+    elem = elem || document.documentElement;
+    if (!document.fullscreenElement && !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement && !document.msFullscreenElement) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  }
+
+  document.onkeydown = function(evt) {
+    if(evt.keyCode == 90 && evt.ctrlKey) { //"z"
+      undo();
+    } else if(evt.keyCode == 83 && evt.ctrlKey) { //"s"
+      saveImg();
+    }
+  }
+
+  //LOAD IMAGE
+  var hiddenFile = document.getElementById("hiddenFile")
+  hiddenFile.addEventListener("change", handleFile);
+  function handleFile(evt) {
+    saveOld();
+    var img = new Image;
+    img.onload = function() {
+      ctx.drawImage(img, 0, 0);
+    }
+    img.src = URL.createObjectURL(evt.target.files[0]);
+  }
+  function loadImg() {
+    hiddenFile.click();
+  }
+
+
+</script>
+</body>
+</html>
