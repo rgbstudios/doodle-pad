@@ -1,6 +1,14 @@
 <!doctype html>
 <html>
 <head>
+
+<!-- TODO:
+work on mobile ui
+edit icon
+display preview of border
+split css, js into files
+ -->
+
   <title>Doodle Pad</title>
 
 
@@ -10,7 +18,7 @@
 <meta name="title=" content="Doodle Pad">
 <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Use Doodle Pad to to make simple doodles for free online">
+<meta name="description" content="A simple website to doodle in your browser">
 <meta name="keywords" content="doodle, draw, pad, drawing">
 <meta id="metaColor1" name="theme-color" content="#393">
 <meta id="metaColor2" name="msapplication-navbutton-color" content="#393">
@@ -62,14 +70,18 @@
     }
     .swatch {
       border-radius: 50%;
-      box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.5),
-      0px 2px 1px rgba(0, 0, 0, 0.5);
+/*      box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.5),
+      0px 2px 1px rgba(0, 0, 0, 0.5);*/
       display: inline-block;
       margin-left: 10px;
     }
+    .swatch:hover {
+      border: 2px solid #999;
+    }
     .swatch.active {
-      border: 2px solid #ccc;
-      box-shadow: inset 0px 3px 0px rgba(0, 0, 0, 0.5);
+      /*border: 2px solid #ccc;*/
+      border: 2px solid #fff;
+      /*box-shadow: inset 0px 3px 0px rgba(0, 0, 0, 0.5);*/
     }
     svg {
       background-color: #eee;
@@ -102,6 +114,9 @@
     }
     #innerToolbar {
       display: inline-block;
+    }
+    #palette {
+      margin-left: 10px;
     }
 
     @media(max-width: 480px), (max-height: 480px) {

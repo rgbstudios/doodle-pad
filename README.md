@@ -1,9 +1,10 @@
-<img src="doodle_icon.svg" width="64px">
-Doodle Pad - RGB Studios
+##  Doodle Pad - RGB Studios <img src="doodle_icon.svg" width="64px">
 
-a simple website to doodle in your browser
+A simple website to doodle in your browser
 
-<a href="http://rgbstudios.org/doodle-pad">rgbstudios.org/doodle-pad</a>
+Use Doodle Pad to to make simple doodles for free online
+
+<a href="https://rgbstudios.org/doodle-pad">rgbstudios.org/doodle-pad</a>
 
 <hr>
 
