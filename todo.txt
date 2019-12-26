@@ -1,0 +1,10 @@
+improve UI?
+help button with modal popup?
+add eraser icon that just selects white
+fix palette button showing colors on first click
+manually enter color?
+
+help modal labeled screenshot of what buttons do
+or: use popovers for titles of buttons
+
+put image data in the url... somehow...
