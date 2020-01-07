@@ -1,6 +1,6 @@
 let canvas, ctx, rad, isClicking = false, oldImages = [];
 
-let palette, showToolbar;
+// let palette, showToolbar;
 $( ()=> {
 
 canvas = document.getElementById("doodleCanvas");
@@ -19,8 +19,8 @@ canvas.addEventListener("touchmove",  putPoint);
 
 // --------------------------------
 
-palette = document.getElementById("palette");
-showToolbar = document.getElementById("showToolbar");
+// palette = document.getElementById("palette");
+// showToolbar = document.getElementById("showToolbar");
 
 // --------------------------------
 
@@ -54,13 +54,13 @@ colors.push("hsl(0,0%,25%)");
 colors.push("hsl(0,0%,50%)");
 colors.push("hsl(0,0%,75%)");
 colors.push("hsl(0,0%,100%)");
-for(let i = 0; i < 360; i+= 30) {
+for(let i = 0; i < 360; i += 30) {
 	colors.push("hsl(" + i + ",100%,25%)");
 }
-for(let i = 0; i < 360; i+= 30) {
+for(let i = 0; i < 360; i += 30) {
 	colors.push("hsl(" + i + ",100%,50%)");
 }
-for(let i = 0; i < 360; i+= 30) {
+for(let i = 0; i < 360; i += 30) {
 	colors.push("hsl(" + i + ",100%,75%)");
 }
 
