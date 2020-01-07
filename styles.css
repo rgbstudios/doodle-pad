@@ -1,9 +1,10 @@
 * {
 	-webkit-user-select: none;
-	box-sizing: border-box; /*adds border to inside*/
+	box-sizing: border-box; /* adds border to inside */
 }
 body {
-	margin:0;
+	margin: 0px;
+	font-family: Arial;
 }
 canvas {
 	display: block;
@@ -13,12 +14,14 @@ canvas, i.material-icons, input, .swatch {
 }
 #toolbar {
 	width: 100%;
-	height: 50px;
 	padding: 10px;
 	position: fixed;
 	top: 0;
 	background-color: #333;
 	color: #ccc;
+}
+#radDiv {
+	margin-left: 10px;
 }
 #radVal {
 	display: inline;
