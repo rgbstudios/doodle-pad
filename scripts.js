@@ -136,27 +136,27 @@ function undo() {
 // Toggle UI
 
 function togglePalette() {
-	let colors = document.getElementById('colors');
-	if(colors.style.display == 'none') {
-		colors.style.display = 'inline';
+	if($('#colors').css('display') == 'none') {
+		$('#colors').css('display', 'inline');
 	} else {
-		colors.style.display = 'none';
+		$('#colors').css('display', 'none');
 	}
 }
 
 function toggleToolbar() {
 	let innerToolbar = document.getElementById('innerToolbar');
 	let toolbar = document.getElementById('toolbar');
-	if(innerToolbar.style.display == 'inline-block') {
+	if(innerToolbar.style.display == 'none') {
+		innerToolbar.style.display = 'inline-block';
+		toolbar.style.height = '';
+		toolbar.style.padding = '';
+		$('#showMoreBtn').css('display', '');
+
+	} else {
 		innerToolbar.style.display = 'none';
 		toolbar.style.height = '0px';
 		toolbar.style.padding = '0px';
 		$('#showMoreBtn').css('display', 'none');
-	} else {
-		innerToolbar.style.display = 'inline-block';
-		toolbar.style.height = '50px';
-		toolbar.style.padding = '10px';
-		$('#showMoreBtn').css('display', '');
 	}
 }
 
