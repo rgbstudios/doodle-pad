@@ -144,16 +144,15 @@ function togglePalette() {
 }
 
 function toggleToolbar() {
-	let innerToolbar = document.getElementById('innerToolbar');
 	let toolbar = document.getElementById('toolbar');
-	if(innerToolbar.style.display == 'none') {
-		innerToolbar.style.display = 'inline-block';
+	if($('#innerToolbar').css('display') == 'none') {
+		$('#innerToolbar').css('display', 'inline-block');
 		toolbar.style.height = '';
 		toolbar.style.padding = '';
 		$('#showMoreBtn').css('display', '');
 
 	} else {
-		innerToolbar.style.display = 'none';
+		$('#innerToolbar').css('display', 'none');
 		toolbar.style.height = '0px';
 		toolbar.style.padding = '0px';
 		$('#showMoreBtn').css('display', 'none');

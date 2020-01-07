@@ -56,7 +56,7 @@ i.material-icons:hover {
 	color: #eee;
 }
 #buttons {
-	float: right;
+	float: right !important;
 	margin-left: 5px;
 }
 .swatch {
