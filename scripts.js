@@ -1,5 +1,6 @@
 let canvas, ctx, rad, isClicking = false, oldImages = [];
 
+let palette, showToolbar;
 $( ()=> {
 
 canvas = document.getElementById("doodleCanvas");
@@ -19,8 +20,8 @@ canvas.addEventListener("touchmove",  putPoint);
 // --------------------------------
 
 // BUTTONS
-let palette = document.getElementById("palette");
-let showToolbar = document.getElementById("showToolbar");
+palette = document.getElementById("palette");
+showToolbar = document.getElementById("showToolbar");
 
 // --------------------------------
 
@@ -155,11 +156,11 @@ function togglePalette() {
 	let colors = document.getElementById("colors");
 	if(colors.style.display == "inline-block") {
 		colors.style.display = "none";
-		palette.style.fill = "#eee";
+		palette.style.color = "#eee";
 		palette.style.backgroundColor = "#666";
 	} else {
 		colors.style.display = "inline-block";
-		palette.style.fill = "#666";
+		palette.style.color = "#666";
 		palette.style.backgroundColor = "#eee";
 	}
 }
