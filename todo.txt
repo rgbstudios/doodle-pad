@@ -29,3 +29,7 @@ enter color hex? color picker? pipet?
 
 draw lines mode?
 fix mobile
+
+lighten/darken?
+scale/select/duplicate?
+fill bucket?

@@ -114,6 +114,7 @@ function putPoint(evt) {
 // Undo
 
 function saveOld() {
+	// anything that edits the image should call this function first
 	if(oldImages.length > 29) {
 		oldImages = oldImages.slice(1,29);
 	}
@@ -238,9 +239,10 @@ function loadImg() {
 	$('#hiddenFile').click();
 }
 
-// Invert
+// Image Editing
 
 function invert() {
+	saveOld();
 	let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 	let data = imageData.data;
 	for(let i = 0; i < data.length; i += 4) {
@@ -250,3 +252,16 @@ function invert() {
 	}
 	ctx.putImageData(imageData, 0, 0);
 }
+
+function grayscale() {
+	saveOld();
+	let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	let data = imageData.data;
+	for(let i = 0; i < data.length; i += 4) {
+		let avg = (data[i] + data[i+1] + data[i+2]) / 3;
+		data[i]   = avg; // r
+		data[i+1] = avg; // g
+		data[i+2] = avg; // b
+	}
+	ctx.putImageData(imageData, 0, 0);
+  };
