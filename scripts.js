@@ -32,7 +32,6 @@ window.onresize = function() {
 // RADIUS
 setRad(DEFAULT_RAD);
 $('#radInput').val(DEFAULT_RAD);
-
 $('#radInput').change( ()=>	setRad($('#radInput').val() ) );
 
 // COLOR
@@ -60,12 +59,11 @@ for(let i = 0; i < colors.length; i++) {
 	document.getElementById('colors').appendChild(swatch);
 }
 
-// --------------------------------
-
 setSwatch({target:document.getElementsByClassName('swatch')[0]});
-
-
 deleteImg();
+
+// LOAD IMAGE
+$('#hiddenFile').change(handleFile);
 
 // --------------------------------
 
@@ -77,28 +75,9 @@ document.onkeydown = function(evt) {
 	}
 }
 
-// LOAD IMAGE
-let hiddenFile = document.getElementById('hiddenFile')
-hiddenFile.addEventListener('change', handleFile);
-
-
-
-
 }); // end onload
 
-
-
-
-
-
-
-
-function saveOld() {
-	if(oldImages.length > 29) {
-		oldImages = oldImages.slice(1,29);
-	}
-	oldImages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-}
+// Basic Drawing Functions
 
 function engage(evt) {
 	isClicking = true;
@@ -132,13 +111,23 @@ function putPoint(evt) {
 	}
 }
 
+// Undo
 
+function saveOld() {
+	if(oldImages.length > 29) {
+		oldImages = oldImages.slice(1,29);
+	}
+	oldImages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+}
 
+function undo() {
+	if(oldImages.length != 0) {
+		ctx.putImageData(oldImages.pop(), 0, 0);
+	}
+}
 
+// Toggle UI
 
-
-
-// button functions
 function togglePalette() {
 	let colors = document.getElementById('colors');
 	if(colors.style.display == 'inline-block') {
@@ -162,24 +151,13 @@ function toggleToolbar() {
 	}
 }
 
-
-
-
-
-
-
-
+// Set Options Functions
 
 function setRad(newRad) {
 	rad = newRad;
 	ctx.lineWidth = 2 * rad;
 	$('#radVal').html(rad < 10 ? '0' + rad : rad);
 }
-
-
-
-
-
 
 function setSwatch(evt) {
 	let swatch = evt.target;
@@ -196,15 +174,14 @@ function setColor(color) {
 	}
 }
 
-
-
-
+// Save and Delete
 
 function saveImg() {
 	let data = canvas.toDataURL('image/png');
 	let newWindow = window.open('about:blank','image from canvas');
 	newWindow.document.write('<img src="' + data + '">');
 }
+
 function deleteImg() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	let oldStyle = ctx.fillStyle;
@@ -213,16 +190,7 @@ function deleteImg() {
 	ctx.fillStyle = oldStyle;
 }
 
-
-
-
-
-
-function undo() {
-	if(oldImages.length != 0) {
-		ctx.putImageData(oldImages.pop(), 0, 0);
-	}
-}
+// Fullscreen
 
 // https://www.thewebflash.com/toggling-fullscreen-mode-using-the-html5-fullscreen-api/
 function fullscreen(elem) {
@@ -251,9 +219,7 @@ function fullscreen(elem) {
 	}
 }
 
-
-
-
+// Load Image
 
 function handleFile(evt) {
 	saveOld();
@@ -264,5 +230,5 @@ function handleFile(evt) {
 	img.src = URL.createObjectURL(evt.target.files[0]);
 }
 function loadImg() {
-	hiddenFile.click();
+	$('#hiddenFile').click();
 }
