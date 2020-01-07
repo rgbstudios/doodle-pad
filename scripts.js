@@ -2,19 +2,19 @@ let canvas, ctx, rad, isClicking = false, oldImages = [];
 
 $( ()=> {
 
-canvas = document.getElementById("doodleCanvas");
-ctx = canvas.getContext("2d");
+canvas = document.getElementById('doodleCanvas');
+ctx = canvas.getContext('2d');
 
 canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
 
-canvas.addEventListener("mousedown", engage);
-canvas.addEventListener("mouseup",   disengage);
-canvas.addEventListener("mousemove", putPoint);
+canvas.addEventListener('mousedown', engage);
+canvas.addEventListener('mouseup',   disengage);
+canvas.addEventListener('mousemove', putPoint);
 
-canvas.addEventListener("touchstart", engage);
-canvas.addEventListener("touchend",   disengage);
-canvas.addEventListener("touchmove",  putPoint);
+canvas.addEventListener('touchstart', engage);
+canvas.addEventListener('touchend',   disengage);
+canvas.addEventListener('touchmove',  putPoint);
 
 // --------------------------------
 
@@ -24,51 +24,46 @@ window.onresize = function() {
 	canvas.height = window.innerHeight;
 	ctx.putImageData(img, 0, 0);
 	setRad(rad);
-	setSwatch({target:document.getElementsByClassName("active")[0]});
+	setSwatch({target:document.getElementsByClassName('active')[0]});
 }
 
 // RADIUS
 let defaultRad = 5,
-		radVal = document.getElementById("radVal"),
-		radInput = document.getElementById("radInput");
+		radInput = document.getElementById('radInput');
 
 setRad(defaultRad);
-radInput.value = defaultRad;
+$('#radInput').val(defaultRad);
 
-// --------------------------------
-
-radInput.onchange = function() {
-	setRad(radInput.value);
-}
+$('#radInput').change( ()=>	setRad($('#radInput').val() ) );
 
 // COLOR
 let colors = [];
-colors.push("hsl(0,0%,0%)");
-colors.push("hsl(0,0%,25%)");
-colors.push("hsl(0,0%,50%)");
-colors.push("hsl(0,0%,75%)");
-colors.push("hsl(0,0%,100%)");
+colors.push('hsl(0,0%,0%)');
+colors.push('hsl(0,0%,25%)');
+colors.push('hsl(0,0%,50%)');
+colors.push('hsl(0,0%,75%)');
+colors.push('hsl(0,0%,100%)');
 for(let i = 0; i < 360; i += 30) {
-	colors.push("hsl(" + i + ",100%,25%)");
+	colors.push('hsl(' + i + ',100%,25%)');
 }
 for(let i = 0; i < 360; i += 30) {
-	colors.push("hsl(" + i + ",100%,50%)");
+	colors.push('hsl(' + i + ',100%,50%)');
 }
 for(let i = 0; i < 360; i += 30) {
-	colors.push("hsl(" + i + ",100%,75%)");
+	colors.push('hsl(' + i + ',100%,75%)');
 }
 
 for(let i = 0; i < colors.length; i++) {
-	let swatch = document.createElement("div");
-	swatch.className = "swatch";
+	let swatch = document.createElement('div');
+	swatch.className = 'swatch';
 	swatch.style.backgroundColor = colors[i];
-	swatch.addEventListener("click", setSwatch);
-	document.getElementById("colors").appendChild(swatch);
+	swatch.addEventListener('click', setSwatch);
+	document.getElementById('colors').appendChild(swatch);
 }
 
 // --------------------------------
 
-setSwatch({target:document.getElementsByClassName("swatch")[0]});
+setSwatch({target:document.getElementsByClassName('swatch')[0]});
 
 
 deleteImg();
@@ -76,16 +71,16 @@ deleteImg();
 // --------------------------------
 
 document.onkeydown = function(evt) {
-	if(evt.keyCode == 90 && evt.ctrlKey) { // "z"
+	if(evt.keyCode == 90 && evt.ctrlKey) { // 'z'
 		undo();
-	} else if(evt.keyCode == 83 && evt.ctrlKey) { // "s"
+	} else if(evt.keyCode == 83 && evt.ctrlKey) { // 's'
 		saveImg();
 	}
 }
 
 // LOAD IMAGE
-let hiddenFile = document.getElementById("hiddenFile")
-hiddenFile.addEventListener("change", handleFile);
+let hiddenFile = document.getElementById('hiddenFile')
+hiddenFile.addEventListener('change', handleFile);
 
 
 
@@ -144,27 +139,27 @@ function putPoint(evt) {
 
 
 
-
+// button functions
 function togglePalette() {
-	let colors = document.getElementById("colors");
-	if(colors.style.display == "inline-block") {
-		colors.style.display = "none";
+	let colors = document.getElementById('colors');
+	if(colors.style.display == 'inline-block') {
+		colors.style.display = 'none';
 	} else {
-		colors.style.display = "inline-block";
+		colors.style.display = 'inline-block';
 	}
 }
 
 function toggleToolbar() {
-	let innerToolbar = document.getElementById("innerToolbar");
-	let toolbar = document.getElementById("toolbar");
-	if(innerToolbar.style.display == "inline-block") {
-		innerToolbar.style.display = "none";
-		toolbar.style.height = "0px";
-		toolbar.style.padding = "0px";
+	let innerToolbar = document.getElementById('innerToolbar');
+	let toolbar = document.getElementById('toolbar');
+	if(innerToolbar.style.display == 'inline-block') {
+		innerToolbar.style.display = 'none';
+		toolbar.style.height = '0px';
+		toolbar.style.padding = '0px';
 	} else {
-		innerToolbar.style.display = "inline-block";
-		toolbar.style.height = "50px";
-		toolbar.style.padding = "10px";
+		innerToolbar.style.display = 'inline-block';
+		toolbar.style.height = '50px';
+		toolbar.style.padding = '10px';
 	}
 }
 
@@ -179,7 +174,7 @@ function toggleToolbar() {
 function setRad(newRad) {
 	rad = newRad;
 	ctx.lineWidth = 2 * rad;
-	radVal.innerHTML = rad < 10 ? "0" + rad : rad;
+	$('#radVal').html(rad < 10 ? '0' + rad : rad);
 }
 
 
@@ -190,15 +185,15 @@ function setRad(newRad) {
 function setSwatch(evt) {
 	let swatch = evt.target;
 	setColor(swatch.style.backgroundColor);
-	swatch.className += " active";
+	swatch.className += ' active';
 }
 
 function setColor(color) {
 	ctx.fillStyle = color;
 	ctx.strokeStyle = color;
-	let active = document.getElementsByClassName("active")[0];
+	let active = document.getElementsByClassName('active')[0];
 	if(active) {
-		active.className = "swatch";
+		active.className = 'swatch';
 	}
 }
 
@@ -207,14 +202,14 @@ function setColor(color) {
 
 
 function saveImg() {
-	let data = canvas.toDataURL("image/png");
+	let data = canvas.toDataURL('image/png');
 	let newWindow = window.open('about:blank','image from canvas');
-	newWindow.document.write("<img src='" + data + "' alt='from canvas'/>");
+	newWindow.document.write('<img src="' + data + '">');
 }
 function deleteImg() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	let oldStyle = ctx.fillStyle;
-	ctx.fillStyle = "#fff";
+	ctx.fillStyle = '#fff';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.fillStyle = oldStyle;
 }
