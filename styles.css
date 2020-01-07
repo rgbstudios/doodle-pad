@@ -63,10 +63,25 @@ i.material-icons:hover {
 	width: 25px;
 	height: 25px;
 }
-#showToolbarBtn {
+#showToolbarBtn, #showMoreBtn {
 	position: fixed;
 	bottom: 5px;
+	background-color: #fff;
+}
+#showToolbarBtn:hover, #showMoreBtn:hover {
+	background-color: #ccc;
+	color: #333;
+}
+#showToolbarBtn {
 	left: 5px;
+}
+#showMoreBtn {
+	right: 5px;
+}
+#moreDiv {
+	position: fixed;
+	bottom: 40px;
+	right: 5px;
 }
 div {
 	display: inline;

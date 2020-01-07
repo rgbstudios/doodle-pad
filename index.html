@@ -36,9 +36,8 @@
 		Radius <p id="radVal"></p>
 		<input id="radInput" type="range" min="1" max="50" step="1"></input>
 		
-		<div id="paletteBtn" title="Show/hide palette" onclick="togglePalette()">
-			<i class="material-icons">palette</i>
-		</div>
+		<i class="material-icons" id="paletteBtn" title="Show/hide palette" onclick="togglePalette()">palette</i>
+		
 		<div id="buttons">
 			<i class="material-icons" title="Undo" onclick="undo()">undo</i>
 			<i class="material-icons" title="Load image" onclick="loadImg()">image</i>
@@ -46,6 +45,9 @@
 			<i class="material-icons" title="Save" onclick="saveImg()">save</i>
 			<i class="material-icons" title="Delete" onclick="deleteImg()">delete</i>
 			<i class="material-icons" title="Fullscreen" onclick="fullscreen()">fullscreen</i>
+		</div>
+
+		<div id="moreDiv">
 			<i class="material-icons" title="Invert" onclick="invert()">invert_colors</i>
 			<i class="material-icons" title="Grayscale" onclick="grayscale()">opacity</i>
 		</div>
@@ -55,6 +57,8 @@
 	</div> <!-- end inner toolbar -->
 
 	<i class="material-icons" id="showToolbarBtn" title="Show/hide toolbar" onclick="toggleToolbar()">remove_red_eye</i>
+
+	<i class="material-icons" id="showMoreBtn" title="Show/hide more options" onclick="toggleMoreOptions()">more_vert</i>
 
 </div> <!-- end toolbar -->
 

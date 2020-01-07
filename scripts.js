@@ -150,10 +150,21 @@ function toggleToolbar() {
 		innerToolbar.style.display = 'none';
 		toolbar.style.height = '0px';
 		toolbar.style.padding = '0px';
+		$('#showMoreBtn').css('display', 'none');
 	} else {
 		innerToolbar.style.display = 'inline-block';
 		toolbar.style.height = '50px';
 		toolbar.style.padding = '10px';
+		$('#showMoreBtn').css('display', '');
+	}
+}
+
+function toggleMoreOptions() {
+	if($('#moreDiv').css('display') != 'none') {
+		$('#moreDiv').css('display', 'none');
+	}
+	else {
+		$('#moreDiv').css('display', '');
 	}
 }
 
