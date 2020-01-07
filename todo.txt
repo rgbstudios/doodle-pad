@@ -30,6 +30,11 @@ enter color hex? color picker? pipet?
 draw lines mode?
 fix mobile
 
+more options:
 lighten/darken?
 scale/select/duplicate?
 fill bucket?
+globalAlpha
+add text
+add shadows
+add gradients

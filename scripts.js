@@ -277,4 +277,28 @@ function grayscale() {
 		data[i+2] = avg; // b
 	}
 	ctx.putImageData(imageData, 0, 0);
-  };
+}
+
+function darken() {
+	saveOld();
+	let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	let data = imageData.data;
+	for(let i = 0; i < data.length; i += 4) {
+		data[i]   = 0.5*data[i];   // r
+		data[i+1] = 0.5*data[i+1]; // g
+		data[i+2] = 0.5*data[i+2]; // b
+	}
+	ctx.putImageData(imageData, 0, 0);
+}
+
+function lighten() {
+	saveOld();
+	let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	let data = imageData.data;
+	for(let i = 0; i < data.length; i += 4) {
+		data[i]   = 255-(0.5*(255-data[i]) );   // r
+		data[i+1] = 255-(0.5*(255-data[i+1]) ); // g
+		data[i+2] = 255-(0.5*(255-data[i+2]) ); // b
+	}
+	ctx.putImageData(imageData, 0, 0);
+}
