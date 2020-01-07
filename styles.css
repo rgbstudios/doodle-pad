@@ -24,14 +24,14 @@ canvas, i.material-icons, input, .swatch {
 	display: inline;
 }
 #colors, .swatch {
-      /*float: right !important;*/
+	/*float: right !important;*/
 	/*display: inline !important;*/
 	/*clear: right;*/
 
 }
 .swatch {
 	border-radius: 50%;
-      box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.5),
+	box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.5),
 	0px 2px 1px rgba(0, 0, 0, 0.5);
 	display: inline-block;
 	margin-left: 10px;
