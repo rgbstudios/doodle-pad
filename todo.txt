@@ -30,8 +30,8 @@ help modal labeled screenshot of what buttons do
 or: use popovers for titles of buttons
 
 put image data in the url... somehow...
-display icon and name on top left of page
 preview radius size when dragging it
 
 
 draw lines mode?
+fix mobile
