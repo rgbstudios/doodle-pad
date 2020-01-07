@@ -1,5 +1,7 @@
 let canvas, ctx, rad, isClicking = false, oldImages = [];
 
+const DEFAULT_RAD = 5;
+
 $( ()=> {
 
 canvas = document.getElementById('doodleCanvas');
@@ -28,11 +30,8 @@ window.onresize = function() {
 }
 
 // RADIUS
-let defaultRad = 5,
-		radInput = document.getElementById('radInput');
-
-setRad(defaultRad);
-$('#radInput').val(defaultRad);
+setRad(DEFAULT_RAD);
+$('#radInput').val(DEFAULT_RAD);
 
 $('#radInput').change( ()=>	setRad($('#radInput').val() ) );
 
