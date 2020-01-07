@@ -117,12 +117,17 @@ function saveOld() {
 	if(oldImages.length > 29) {
 		oldImages = oldImages.slice(1,29);
 	}
-	oldImages.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+	oldImages.push(ctx.getImageData(0, 0, canvas.width, canvas.height) );
 }
 
 function undo() {
+	console.log('undo');
+	console.log(oldImages.length);
+	console.log(oldImages);
 	if(oldImages.length != 0) {
 		ctx.putImageData(oldImages.pop(), 0, 0);
+		// ctx.putImageData(oldImages[oldImages.length-1], 0, 0);
+		// oldImages.pop();
 	}
 }
 
@@ -231,4 +236,17 @@ function handleFile(evt) {
 }
 function loadImg() {
 	$('#hiddenFile').click();
+}
+
+// Invert
+
+function invert() {
+	let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	let data = imageData.data;
+	for(let i = 0; i < data.length; i += 4) {
+		data[i]   = 255 - data[i];   // r
+		data[i+1] = 255 - data[i+1]; // g
+		data[i+2] = 255 - data[i+2]; // b
+	}
+	ctx.putImageData(imageData, 0, 0);
 }

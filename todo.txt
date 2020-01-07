@@ -1,5 +1,6 @@
 html todo:
-fix undo button
+fix undo button // https://codepen.io/abidibo/pen/rmGBc
+	undo current state: first undo doesnt work, each subsequent one does until there is one action left
 display preview of border
 
 js todo:
