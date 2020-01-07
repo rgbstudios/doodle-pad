@@ -1,11 +1,13 @@
-window.onload = function() {
+let canvas, ctx, rad, isClicking, oldImages;
 
-let canvas = document.getElementById("doodleCanvas");
-let ctx = canvas.getContext("2d");
+$( ()=> {
 
-let rad;
-let isClicking = false;
-let oldImages = [];
+canvas = document.getElementById("doodleCanvas");
+ctx = canvas.getContext("2d");
+
+rad;
+isClicking = false;
+oldImages = [];
 
 canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -17,6 +19,95 @@ canvas.addEventListener("mousemove", putPoint);
 canvas.addEventListener("touchstart", engage);
 canvas.addEventListener("touchend",   disengage);
 canvas.addEventListener("touchmove",  putPoint);
+
+// --------------------------------
+
+// BUTTONS
+let palette = document.getElementById("palette");
+let showToolbar = document.getElementById("showToolbar");
+
+// --------------------------------
+
+window.onresize = function() {
+	let img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	canvas.width  = window.innerWidth;
+	canvas.height = window.innerHeight;
+	ctx.putImageData(img, 0, 0);
+	setRad(rad);
+	setSwatch({target:document.getElementsByClassName("active")[0]});
+}
+
+// RADIUS
+let defaultRad = 5,
+		radVal = document.getElementById("radVal"),
+		radInput = document.getElementById("radInput");
+
+setRad(defaultRad);
+radInput.value = defaultRad;
+
+// --------------------------------
+
+radInput.onchange = function() {
+	setRad(radInput.value);
+}
+
+// COLOR
+let colors = [];
+colors.push("hsl(0,0%,0%)");
+colors.push("hsl(0,0%,25%)");
+colors.push("hsl(0,0%,50%)");
+colors.push("hsl(0,0%,75%)");
+colors.push("hsl(0,0%,100%)");
+for(let i = 0; i < 360; i+= 30) {
+	colors.push("hsl(" + i + ",100%,25%)");
+}
+for(let i = 0; i < 360; i+= 30) {
+	colors.push("hsl(" + i + ",100%,50%)");
+}
+for(let i = 0; i < 360; i+= 30) {
+	colors.push("hsl(" + i + ",100%,75%)");
+}
+
+for(let i = 0; i < colors.length; i++) {
+	let swatch = document.createElement("div");
+	swatch.className = "swatch";
+	swatch.style.backgroundColor = colors[i];
+	swatch.addEventListener("click", setSwatch);
+	document.getElementById("colors").appendChild(swatch);
+}
+
+// --------------------------------
+
+setSwatch({target:document.getElementsByClassName("swatch")[0]});
+
+
+deleteImg();
+
+// --------------------------------
+
+document.onkeydown = function(evt) {
+	if(evt.keyCode == 90 && evt.ctrlKey) { // "z"
+		undo();
+	} else if(evt.keyCode == 83 && evt.ctrlKey) { // "s"
+		saveImg();
+	}
+}
+
+// LOAD IMAGE
+let hiddenFile = document.getElementById("hiddenFile")
+hiddenFile.addEventListener("change", handleFile);
+
+
+
+
+}); // all wrapped in onload to keep my old code working for now
+
+
+
+
+
+
+
 
 function saveOld() {
 	if(oldImages.length > 29) {
@@ -57,9 +148,12 @@ function putPoint(evt) {
 	}
 }
 
-// BUTTONS
-let palette = document.getElementById("palette");
-let showToolbar = document.getElementById("showToolbar");
+
+
+
+
+
+
 
 function togglePalette() {
 	let colors = document.getElementById("colors");
@@ -81,33 +175,24 @@ function toggleToolbar() {
 		innerToolbar.style.display = "none";
 		toolbar.style.height = "0px";
 		toolbar.style.padding = "0px";
-		showToolbar.style.fill = "#eee";
+		showToolbar.style.color = "#eee";
 		showToolbar.style.backgroundColor = "#666";
 	} else {
 		innerToolbar.style.display = "inline-block";
 		toolbar.style.height = "50px";
 		toolbar.style.padding = "10px";
-		showToolbar.style.fill = "#666";
+		showToolbar.style.color = "#666";
 		showToolbar.style.backgroundColor = "#eee";
 	}
 }
 
-window.onresize = function() {
-	let img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-	canvas.width  = window.innerWidth;
-	canvas.height = window.innerHeight;
-	ctx.putImageData(img, 0, 0);
-	setRad(rad);
-	setSwatch({target:document.getElementsByClassName("active")[0]});
-}
 
-// RADIUS
-let defaultRad = 5,
-		radVal = document.getElementById("radVal"),
-		radInput = document.getElementById("radInput");
 
-setRad(defaultRad);
-radInput.value = defaultRad;
+
+
+
+
+
 
 function setRad(newRad) {
 	rad = newRad;
@@ -115,34 +200,10 @@ function setRad(newRad) {
 	radVal.innerHTML = rad < 10 ? "0" + rad : rad;
 }
 
-radInput.onchange = function() {
-	setRad(radInput.value);
-}
 
-// COLOR
-let colors = [];
-colors.push("hsl(0,0%,0%)");
-colors.push("hsl(0,0%,25%)");
-colors.push("hsl(0,0%,50%)");
-colors.push("hsl(0,0%,75%)");
-colors.push("hsl(0,0%,100%)");
-for(let i = 0; i < 360; i+= 30) {
-	colors.push("hsl(" + i + ",100%,25%)");
-}
-for(let i = 0; i < 360; i+= 30) {
-	colors.push("hsl(" + i + ",100%,50%)");
-}
-for(let i = 0; i < 360; i+= 30) {
-	colors.push("hsl(" + i + ",100%,75%)");
-}
 
-for(let i = 0; i < colors.length; i++) {
-	let swatch = document.createElement("div");
-	swatch.className = "swatch";
-	swatch.style.backgroundColor = colors[i];
-	swatch.addEventListener("click", setSwatch);
-	document.getElementById("colors").appendChild(swatch);
-}
+
+
 
 function setSwatch(evt) {
 	let swatch = evt.target;
@@ -159,9 +220,10 @@ function setColor(color) {
 	}
 }
 
-setSwatch({target:document.getElementsByClassName("swatch")[0]});
 
-// MORE BUTTONS
+
+
+
 function saveImg() {
 	let data = canvas.toDataURL("image/png");
 	let newWindow = window.open('about:blank','image from canvas');
@@ -175,7 +237,10 @@ function deleteImg() {
 	ctx.fillStyle = oldStyle;
 }
 
-deleteImg();
+
+
+
+
 
 function undo() {
 	if(oldImages.length != 0) {
@@ -210,17 +275,10 @@ function fullscreen(elem) {
 	}
 }
 
-document.onkeydown = function(evt) {
-	if(evt.keyCode == 90 && evt.ctrlKey) { // "z"
-		undo();
-	} else if(evt.keyCode == 83 && evt.ctrlKey) { // "s"
-		saveImg();
-	}
-}
 
-// LOAD IMAGE
-let hiddenFile = document.getElementById("hiddenFile")
-hiddenFile.addEventListener("change", handleFile);
+
+
+
 function handleFile(evt) {
 	saveOld();
 	let img = new Image;
@@ -232,7 +290,3 @@ function handleFile(evt) {
 function loadImg() {
 	hiddenFile.click();
 }
-
-
-
-} // all wrapped in onload to keep my old code working for now
