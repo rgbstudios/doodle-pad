@@ -71,7 +71,8 @@ $('#hiddenFile').change(handleFile);
 document.onkeydown = function(evt) {
 	if(evt.keyCode == 90 && evt.ctrlKey) { // 'z'
 		undo();
-	} else if(evt.keyCode == 83 && evt.ctrlKey) { // 's'
+	}
+	else if(evt.keyCode == 83 && evt.ctrlKey) { // 's'
 		saveImg();
 	}
 }
@@ -97,7 +98,8 @@ function putPoint(evt) {
 		if(evt.clientX) {
 			x = evt.clientX;
 			y = evt.clientY;
-		} else {
+		}
+		else {
 			let touch = evt.touches[0];
 			x = touch.pageX;
 			y = touch.pageY;
@@ -138,7 +140,8 @@ function undo() {
 function togglePalette() {
 	if($('#colors').css('display') == 'none') {
 		$('#colors').css('display', 'inline');
-	} else {
+	}
+	else {
 		$('#colors').css('display', 'none');
 	}
 }
@@ -149,8 +152,8 @@ function toggleToolbar() {
 		$('#toolbar').css('height', '');
 		$('#toolbar').css('padding', '');
 		$('#showMoreBtn').css('display', '');
-
-	} else {
+	}
+	else {
 		$('#innerToolbar').css('display', 'none');
 		$('#toolbar').css('height', '0px');
 		$('#toolbar').css('padding', '0px');
