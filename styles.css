@@ -65,10 +65,10 @@ i.material-icons:hover {
 	width: 30px;
 	height: 30px;
 }
-#showToolbar {
+#showToolbarBtn {
 	position: fixed;
-	bottom: 0;
-	left: 0;
+	bottom: 5px;
+	left: 5px;
 }
 div {
 	display: inline;
@@ -76,7 +76,7 @@ div {
 #innerToolbar {
 	display: inline-block;
 }
-#palette {
+#paletteBtn {
 	margin-left: 10px;
 }
 #hiddenFile {
