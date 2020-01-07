@@ -61,6 +61,7 @@ for(let i = 0; i < colors.length; i++) {
 
 setSwatch({target:document.getElementsByClassName('swatch')[0]});
 deleteImg();
+toggleMoreOptions();
 
 // LOAD IMAGE
 $('#hiddenFile').change(handleFile);
@@ -136,10 +137,10 @@ function undo() {
 
 function togglePalette() {
 	let colors = document.getElementById('colors');
-	if(colors.style.display == 'inline-block') {
-		colors.style.display = 'none';
+	if(colors.style.display == 'none') {
+		colors.style.display = 'inline';
 	} else {
-		colors.style.display = 'inline-block';
+		colors.style.display = 'none';
 	}
 }
 
