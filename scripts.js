@@ -1,13 +1,9 @@
-let canvas, ctx, rad, isClicking, oldImages;
+let canvas, ctx, rad, isClicking = false, oldImages = [];
 
 $( ()=> {
 
 canvas = document.getElementById("doodleCanvas");
 ctx = canvas.getContext("2d");
-
-rad;
-isClicking = false;
-oldImages = [];
 
 canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -100,7 +96,7 @@ hiddenFile.addEventListener("change", handleFile);
 
 
 
-}); // all wrapped in onload to keep my old code working for now
+}); // end onload
 
 
 
