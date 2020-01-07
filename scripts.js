@@ -19,7 +19,6 @@ canvas.addEventListener("touchmove",  putPoint);
 
 // --------------------------------
 
-// BUTTONS
 palette = document.getElementById("palette");
 showToolbar = document.getElementById("showToolbar");
 
@@ -156,12 +155,12 @@ function togglePalette() {
 	let colors = document.getElementById("colors");
 	if(colors.style.display == "inline-block") {
 		colors.style.display = "none";
-		palette.style.color = "#eee";
-		palette.style.backgroundColor = "#666";
+		// palette.style.color = "#eee";
+		// palette.style.backgroundColor = "#666";
 	} else {
 		colors.style.display = "inline-block";
-		palette.style.color = "#666";
-		palette.style.backgroundColor = "#eee";
+		// palette.style.color = "#666";
+		// palette.style.backgroundColor = "#eee";
 	}
 }
 
@@ -172,14 +171,14 @@ function toggleToolbar() {
 		innerToolbar.style.display = "none";
 		toolbar.style.height = "0px";
 		toolbar.style.padding = "0px";
-		showToolbar.style.color = "#eee";
-		showToolbar.style.backgroundColor = "#666";
+		// showToolbar.style.color = "#eee";
+		// showToolbar.style.backgroundColor = "#666";
 	} else {
 		innerToolbar.style.display = "inline-block";
 		toolbar.style.height = "50px";
 		toolbar.style.padding = "10px";
-		showToolbar.style.color = "#666";
-		showToolbar.style.backgroundColor = "#eee";
+		// showToolbar.style.color = "#666";
+		// showToolbar.style.backgroundColor = "#eee";
 	}
 }
 

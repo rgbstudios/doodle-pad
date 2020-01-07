@@ -12,9 +12,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="A simple website to doodle in your browser">
 <meta name="keywords" content="doodle, draw, pad, drawing">
-<meta id="metaColor1" name="theme-color" content="#393">
-<meta id="metaColor2" name="msapplication-navbutton-color" content="#393">
-<meta id="metaColor3" name="apple-mobile-web-app-status-bar-style" content="#393">
+
+<meta name="theme-color" content="#393">
+<meta name="msapplication-navbutton-color" content="#393">
+<meta name="apple-mobile-web-app-status-bar-style" content="#393">
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -27,9 +28,10 @@
 
 </head>
 <body>
+
 <div id="toolbar">
-	<div id="innerToolbar" style="display:inline-block;">
-		<div id="rad">
+	<div id="innerToolbar">
+		<div>
 			Radius <p id="radVal"></p>
 			<input id="radInput" type="range" min="1" max="50" step="1"></input>
 		</div>
@@ -59,18 +61,20 @@
 
 	<div id="colors"></div>
 
-	</div>
+	</div> <!-- end inner toolbar -->
 
 
 	<div id="showToolbar" title="Show/hide toolbar" onclick="toggleToolbar()">
 		<i class="material-icons">remove_red_eye</i>
 	</div>
 
-</div>
+</div> <!-- end toolbar -->
 
-<input id="hiddenFile" type="file" style="display:none;"></input>
+<input id="hiddenFile" type="file"></input>
+
 <canvas id="doodleCanvas">
-	Whoops
+	The canvas element is not supported by your crappy browser. Sorry.
 </canvas>
+
 </body>
 </html>

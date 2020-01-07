@@ -1,5 +1,4 @@
 * {
-
 	-webkit-user-select: none;
 	box-sizing: border-box; /*adds border to inside*/
 }
@@ -80,13 +79,17 @@ div {
 #palette {
 	margin-left: 10px;
 }
+#hiddenFile {
+	display:none;
+}
 
 @media(max-width: 480px), (max-height: 480px) {
 	i.material-icons {
 		width: 25px;
 		height: 25px;
 	}
-} @media print {
+}
+@media print {
 	#toolbar {
 		display: none;
 	}
