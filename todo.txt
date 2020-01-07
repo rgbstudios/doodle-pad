@@ -1,3 +1,25 @@
+html todo:
+fix undo button
+work on mobile ui
+edit icon
+display preview of border
+split css, js into files
+
+
+
+
+js todo:
+  fix save image?
+
+  opacity?
+  info: what buttons do, settings, contact/share
+  custom color, color picker
+  virtual canvas
+
+
+
+
+
 improve UI?
 help button with modal popup?
 add eraser icon that just selects white
@@ -8,3 +30,5 @@ help modal labeled screenshot of what buttons do
 or: use popovers for titles of buttons
 
 put image data in the url... somehow...
+display icon and name on top left of page
+preview radius size when dragging it

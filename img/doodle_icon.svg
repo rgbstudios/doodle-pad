@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+<style type="text/css">
+*{stroke-width:2;stroke-linejoin:round;}
+.st2{fill:#393;stroke:#cfc;}
+.st3{fill:#cfc;stroke:#393;}
+</style>
+<circle class="st3" cx="36" cy="36" r="30"/>
+<path class="st2" d="M49.5,36l-5,5l-9,9l-13,13c-5,0-9-4-9-9l13-13l9-9l5-5"/>
+<path class="st3" d="M40.5,27c0,5,4,9,9,9s9-4,9-9c0-10,2-18,4.5-18C50.6,9,40.5,17,40.5,27z"/>
+<path class="st3" d="M22.5,37l4,4l9,9l14,14c5,0,9-4,9-9l-14-14l-9-9l-4-4"/>
+<path class="st2" d="M31.5,28c0,5-4,9-9,9s-9-4-9-9c0-10-2-18-4.5-18C21.4,10,31.5,18,31.5,28z"/>
+</svg>
