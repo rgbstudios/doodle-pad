@@ -20,42 +20,36 @@ canvas, i.material-icons, input, .swatch {
 	background-color: #333;
 	color: #ccc;
 }
-#radDiv {
-	margin-left: 10px;
-}
 #radVal {
 	display: inline;
 }
-#rad {
-	float: left;
-}
 #colors, .swatch {
-/*      float: right !important;
-	display: inline !important;
-	clear: right;
-*/
+      /*float: right !important;*/
+	/*display: inline !important;*/
+	/*clear: right;*/
+
 }
 .swatch {
 	border-radius: 50%;
-/*      box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.5),
-	0px 2px 1px rgba(0, 0, 0, 0.5);*/
+      box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.5),
+	0px 2px 1px rgba(0, 0, 0, 0.5);
 	display: inline-block;
 	margin-left: 10px;
 	margin-top: 5px;
 }
 .swatch:hover {
-	border: 2px solid #999;
+	border: 2px solid #fff;
+	box-shadow: none;
 }
 .swatch.active {
-	/*border: 2px solid #ccc;*/
 	border: 2px solid #fff;
-	/*box-shadow: inset 0px 3px 0px rgba(0, 0, 0, 0.5);*/
+	box-shadow: inset 0px 3px 0px rgba(0, 0, 0, 0.5);
 }
 i.material-icons {
 	color: #666;
 	background-color: #eee;
 	border-radius: 50%;
-	padding: 5px;
+	padding: 3px;
 }
 i.material-icons:hover {
 	background-color: #666;
@@ -63,11 +57,11 @@ i.material-icons:hover {
 }
 #buttons {
 	float: right;
-	margin-left: 10px;
+	margin-left: 5px;
 }
 .swatch {
-	width: 30px;
-	height: 30px;
+	width: 25px;
+	height: 25px;
 }
 #showToolbarBtn {
 	position: fixed;
@@ -76,9 +70,6 @@ i.material-icons:hover {
 }
 div {
 	display: inline;
-}
-#innerToolbar {
-	display: inline-block;
 }
 #paletteBtn {
 	margin-left: 10px;

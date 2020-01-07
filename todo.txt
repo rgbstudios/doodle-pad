@@ -27,7 +27,7 @@ fix palette button showing colors on first click
 manually enter color?
 
 help modal labeled screenshot of what buttons do
-or: use popovers for titles of buttons
+or: use popovers for titles of buttons (or both)
 
 put image data in the url... somehow...
 preview radius size when dragging it
