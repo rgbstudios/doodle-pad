@@ -21,6 +21,7 @@ manually enter color?
 
 help modal labeled screenshot of what buttons do
 or: use popovers for titles of buttons (or both)
+https://stackoverflow.com/questions/2011142/how-to-change-the-style-of-the-title-attribute-inside-an-anchor-tag
 
 put image data in the url... somehow...
 preview radius size when dragging it
@@ -38,3 +39,10 @@ globalAlpha
 add text
 add shadows
 add gradients
+transforming (translating, rotating, skewing, scaling...)
+image editing with these: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing
+
+make range input prettier
+move tools somewhere else in UI
+add tooltips
+add color picker
