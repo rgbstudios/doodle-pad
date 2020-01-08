@@ -1,5 +1,8 @@
 let canvas, ctx, rad, isClicking = false, oldImages = [];
 
+// const tools = 'draw fill'.split(' ');
+let currentTool = 'draw';
+
 const DEFAULT_RAD = 5;
 
 $( ()=> {
@@ -59,9 +62,11 @@ for(let i = 0; i < colors.length; i++) {
 	document.getElementById('colors').appendChild(swatch);
 }
 
+// Setup
 setSwatch({target:document.getElementsByClassName('swatch')[0]});
 deleteImg();
 toggleMoreOptions();
+$('.tool[title=Brush]').addClass('active');
 
 // LOAD IMAGE
 $('#hiddenFile').change(handleFile);
@@ -77,11 +82,14 @@ document.onkeydown = function(evt) {
 	}
 }
 
+canvas.addEventListener('click', evt => doFill(evt) );
+
 }); // end onload
 
 // Basic Drawing Functions
 
 function engage(evt) {
+	if(currentTool != 'draw') return false;
 	isClicking = true;
 	putPoint(evt);
 }
@@ -301,4 +309,22 @@ function lighten() {
 		data[i+2] = 255-(0.5*(255-data[i+2]) ); // b
 	}
 	ctx.putImageData(imageData, 0, 0);
+}
+
+// Set Tool Function
+
+function setTool(toolName, btn) {
+	currentTool = toolName;
+	$('.tool').removeClass('active');
+	$(btn).addClass('active');
+}
+
+// Utility Color Functions
+
+function getColorForFloodFill() {
+	let tmp = {r: 0x0, g: 0x0, b: 0x0, a: 0xff};
+	tmp.r = parseInt(ctx.strokeStyle.slice(1,3), 16);
+	tmp.g = parseInt(ctx.strokeStyle.slice(3,5), 16);
+	tmp.b = parseInt(ctx.strokeStyle.slice(5,7), 16);
+	return tmp;
 }

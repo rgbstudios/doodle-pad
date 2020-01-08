@@ -8,6 +8,7 @@ body {
 }
 canvas {
 	display: block;
+	/*cursor: crosshair;*/
 }
 canvas, i.material-icons, input, .swatch {
 	cursor: pointer;
@@ -51,7 +52,7 @@ i.material-icons {
 	border-radius: 50%;
 	padding: 3px;
 }
-i.material-icons:hover {
+i.material-icons:hover, i.material-icons.active {
 	background-color: #666;
 	color: #eee;
 }
